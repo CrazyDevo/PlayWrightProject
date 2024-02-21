@@ -7,7 +7,7 @@ public class HWP1_Etsy_Search_Title {
     @Test
     void test1() {
 
-//HWP #1: Etsy Title Verification
+        //HWP #1: Etsy Title Verification
         //1. Open Chrome browser
         //Setting up our chromedriver using WebDriverManager
 
