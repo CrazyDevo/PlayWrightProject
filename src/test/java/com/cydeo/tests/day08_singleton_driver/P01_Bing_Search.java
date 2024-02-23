@@ -4,10 +4,7 @@ import com.cydeo.utils.BrowserUtils;
 import com.cydeo.utils.ConfigurationReader;
 import com.cydeo.utils.Driver;
 import com.microsoft.playwright.ElementHandle;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 public class P01_Bing_Search {
 
@@ -28,12 +25,13 @@ public class P01_Bing_Search {
         Driver.closeDriver();
     }
 
+
     @Test
-    public void bing_search_test(){
+    public void bing_search_test1(){
         BrowserUtils.sleep(3);
         //click accept
         Driver.getPage().querySelector("#bnp_btn_accept").click();
-        //3- Write “apple” in search box
+        //3- Write config value
         BrowserUtils.sleep(3);
         //locate the search box
         ElementHandle searchBox = Driver.getPage().querySelector("textarea[name='q']");
@@ -49,6 +47,34 @@ public class P01_Bing_Search {
         //String expectedTitle = "apple - Search";
         //We are just making the expectedTitle dynamic based on the text we are searching.
         String expectedTitle = ConfigurationReader.getProperty("searchValue")+" - Search";
+
+        Assertions.assertTrue(actualTitle.equals(expectedTitle));
+
+
+    }
+
+
+    @Test
+    public void bing_search_test2(){
+        BrowserUtils.sleep(3);
+        //click accept
+        Driver.getPage().querySelector("#bnp_btn_accept").click();
+        //3- Write “apple” in search box
+        BrowserUtils.sleep(3);
+        //locate the search box
+        ElementHandle searchBox = Driver.getPage().querySelector("textarea[name='q']");
+        searchBox.fill("apple");
+        BrowserUtils.sleep(1);
+        searchBox.press("Enter");
+
+        //4- Verify title:
+        //Expected: apple - Search
+        //Expected: flowers - Search
+        String actualTitle = Driver.getPage().title();
+
+        //String expectedTitle = "apple - Search";
+        //We are just making the expectedTitle dynamic based on the text we are searching.
+        String expectedTitle = "apple - Search";
 
         Assertions.assertTrue(actualTitle.equals(expectedTitle));
 

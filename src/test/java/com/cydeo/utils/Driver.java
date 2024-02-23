@@ -55,9 +55,13 @@ public class Driver {
 
         if (page!=null){
             page.close();
+            page=null;
             browser.close();
-            playwright.close();
+            browser=null;
+            playwright=null;
         }
 
     }
+
+
 }
