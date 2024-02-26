@@ -3,6 +3,7 @@ package com.cydeo.tests.day10_actions_pom_explicit_waits;
 import com.cydeo.pages.LibraryLoginPage;
 import com.cydeo.utils.BrowserUtils;
 import com.cydeo.utils.Driver;
+import com.microsoft.playwright.Locator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,6 +43,36 @@ LibraryLoginPage loginPage;
         Assertions.assertTrue(loginPage.getFieldRequiredErrorMessage().isVisible());
 
 
+    }
+
+    @Test
+    public void email_format_error_message_test(){
+        //TC #8: Invalid email format error message test
+
+        //3- Enter invalid email format
+        loginPage.getEmailInput().fill("username");
+        loginPage.getSignInButton().click();
+        //4- Verify expected error is displayed:
+        //Expected: Please enter a valid email address.
+        Assertions.assertTrue(loginPage.getEnterValidEmailErrorMessage().isVisible());
+    }
+
+
+    @Test
+    public void wrong_email_or_password_error_message(){
+        //TC #9: Library negative login
+
+        //3- Enter incorrect username or incorrect password
+        loginPage.getEmailInput().pressSequentially("username@wrongsomething.com",
+                new Locator.PressSequentiallyOptions().setDelay(100));
+        BrowserUtils.sleep(1);
+        loginPage.getPasswordInput().fill("somethingIncorrect");
+        loginPage.getSignInButton().click();
+
+        //4- Verify expected error is displayed:
+        //Expected: Sorry, Wrong Email or Password
+        BrowserUtils.sleep(1);
+        Assertions.assertTrue(loginPage.getWrongEmailOrPasswordErrorMessage().isVisible());
     }
 
 }
