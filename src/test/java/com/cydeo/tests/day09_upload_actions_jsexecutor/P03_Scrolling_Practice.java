@@ -35,10 +35,6 @@ public class P03_Scrolling_Practice {
         ElementHandle cydeoLink = Driver.getPage().querySelector("text=CYDEO");
 
 
-
-        //4- Scroll using “scrollIntoViewIfNeeded()” method
-        //  cydeoLink.scrollIntoViewIfNeeded();
-
         BrowserUtils.sleep(3);
         // Scroll down
         Driver.getPage().evaluate("() => { window.scrollBy(0, window.innerHeight); }");
